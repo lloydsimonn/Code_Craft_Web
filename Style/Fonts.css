@@ -1,0 +1,10 @@
+@font-face {
+    font-family: "Inter" ;
+    src: url("../Fonts/Inter\ Extra\ Bold\ 800.otf") format("truetype");
+}
+body {
+    font-family: "Inter", sans-serif;
+    background-color: #121212;
+   
+
+}
