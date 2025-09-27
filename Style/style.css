@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Inter" ;
-    src: url();
+    src: url("../Fonts/Inter\ Extra\ Bold\ 800.otf") format("truetype");
 }
 body {
     font-family: "Inter", sans-serif;
@@ -38,4 +38,12 @@ body {
 .form-control-animate {
   animation: stretchSidesSmooth 1s ease-in-out forwards;
   transform-origin: center;
+}
+.form-control:focus {
+  border: none;
+}
+.form-control::placeholder {
+  color: #fff;
+  opacity: 50%;
+  font-size: medium;
 }
