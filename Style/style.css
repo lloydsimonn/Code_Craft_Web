@@ -39,11 +39,13 @@ body {
   animation: stretchSidesSmooth 1s ease-in-out forwards;
   transform-origin: center;
 }
-.form-control:focus {
-  border: none;
-}
+
 .form-control::placeholder {
   color: #fff;
   opacity: 50%;
   font-size: medium;
+}
+.form-control:focus {
+  box-shadow: none;
+  border-color: #fff;
 }
