@@ -1,7 +1,6 @@
 // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
-  import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -19,27 +18,12 @@
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
   console.log("Firebase Initialized");
 
+    const auth = getAuth();
 
-
-
-
-  const logoutBtn = document.getElementById("logoutBtn");
-  const auth = getAuth();
-
-  logoutBtn.addEventListener("click", () => {
-    signOut(auth)
-      .then(() => {
-        
-     
-        localStorage.removeItem("rememberedEmail"); 
-        window.location.href = "Html/login.html"; // redirect to login
-
-      })
-      .catch((error) => {
-        console.error("Logout error:", error);
-        alert("Error logging out: " + error.message);
-      });
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "Login.html";
+    }
   });
