@@ -24,6 +24,6 @@
 
   onAuthStateChanged(auth, (user) => {
     if (!user) {
-      window.location.href = "Login.html";
+      window.location.href = "../Html/Login.html";
     }
   });
