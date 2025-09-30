@@ -26,4 +26,8 @@
     if (!user) {
       window.location.href = "../Html/Login.html";
     }
+    else{
+       window.location.href = "#";
+    }
+     
   });

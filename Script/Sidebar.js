@@ -1,3 +1,3 @@
-    // $(function(){
-    //   $("#sidebar_placeholder").load("../Html/sidebar.html");
-    // });
+    $(function(){
+      $("#sidebar-placeholder").load("sidebar.html");
+    });
