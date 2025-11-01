@@ -35,7 +35,7 @@
         
      
         localStorage.removeItem("rememberedEmail"); 
-        window.location.href = "Html/login.html"; // redirect to login
+        window.location.href = "login.html"; // redirect to login
 
       })
       .catch((error) => {

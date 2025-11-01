@@ -1,4 +1,4 @@
- nm // Import the functions you need from the SDKs you need
+  // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
   import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
@@ -19,7 +19,7 @@
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+  const auth = getAuth();
   console.log("Firebase Initialized");
 
 
@@ -64,21 +64,24 @@ form.addEventListener("submit", (e) => {
 
 
   // signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value) ...  
-        const auth = getAuth();
+
         const email = document.getElementById('email').value; 
         const password = document.getElementById('password').value;
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
         // Signed in 
                 const user = userCredential.user;
-                  
+                window.alert("Login successful!");  
                 window.location.href = "../index.html";
         // ...
         })
         .catch((error) => {
+          window.alert("Login Failed!");  
             const errorCode = error.code;
             const errorMessage = error.message;
+            
             alert("Login failed: " + errorMessage);
+            
         });
    
 
