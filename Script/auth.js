@@ -22,7 +22,7 @@
 
     const auth = getAuth();
 
-  onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, (user) => {
     if (!user) {
       window.location.href = "../Html/Login.html";
     }

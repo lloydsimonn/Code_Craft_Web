@@ -30,22 +30,5 @@
 
 // Example usage:
 const email = "harley@gmail.com";
-checkIfEmailExists(email);
 
-async function checkIfEmailExists(email) {
-  try {
-    const methods = await fetchSignInMethodsForEmail(auth, email);
 
-    if (methods.length > 0) {
-      console.log("❌ Email already registered in Firebase Auth");
-      return true;
-    } else {
-      console.log("✅ Email is available");
-      return false;
-    }
-
-  } catch (error) {
-    console.error("Error fetching sign-in methods:", error.message);
-    return false;
-  }
-}
