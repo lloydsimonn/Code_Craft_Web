@@ -14,24 +14,24 @@
       opacity: 1;
     }
 
-    /* --- Top bar setup --- */
+  
     .top-bar {
       position: relative;
-      z-index: 1; /* Behind the card */
- 
+      z-index: 1; 
     }
 
-    /* --- Card overlaps the navbar --- */
+
     .main-content {
       position: relative;
       z-index: 2;
-      margin-top: -40px; /* pushes card upward to overlap */
+      margin-top: -20px;
     }
 
     .card {
       position: relative;
       z-index: 3;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      
     }
   </style>
 </head>
@@ -47,7 +47,13 @@
   </div>
 
   <!-- Registration Card -->
+   
   <div class="main-content flex-grow-1 d-flex justify-content-center align-items-start px-3 py-4 mb-5">
+     <div class="d-flex flex-column align-items-center w-100" style="max-width: 700px;">
+     <div id="formMessage" 
+       class="text-center fw-semibold mb-3 w-100">
+    </div>
+
     <div class="card bg-dark text-light rounded-4 shadow-lg p-4 w-100" style="max-width: 700px;">
       
       <h4 class="text-center fw-bold mb-4">Create Your Account</h4>
@@ -58,30 +64,30 @@
           <div class="col-12 col-md-6">
             <div class="mb-2">
               <label class="form-label small fw-semibold">First Name</label>
-              <input type="text" id="fname" class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill" placeholder="First Name">
+              <input type="text" id="fname" class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill" placeholder="First Name" required>
             </div>
 
             <div class="mb-2">
               <label class="form-label small fw-semibold">Middle Name</label>
-              <input type="text" id="mname" class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill" placeholder="Middle Name">
+              <input type="text" id="mname" class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill" placeholder="Middle Name" required>
             </div>
 
             <div class="mb-2">
               <label class="form-label small fw-semibold">Last Name</label>
-              <input type="text" id="lname" class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill" placeholder="Last Name">
+              <input type="text" id="lname" class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill" placeholder="Last Name" required>
             </div>
 
             <div class="mb-2">
               <label class="form-label small fw-semibold">Student Number</label>
-              <input type="text" id="snum" class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill" placeholder="Student Number">
+              <input type="text" id="snum" class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill" placeholder="Student Number" required>
             </div>
 
             <div class="mb-3">
               <label class="form-label small fw-semibold">Username</label>
-              <input type="text" id="uname" class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill" placeholder="Username">
+              <input type="text" id="uname" class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill" placeholder="Username" required>
             </div>
 
-            <div class="d-flex justify-content-center mt-2">
+            <!-- <div class="d-flex justify-content-center mt-2">
               <div class="btn-group w-100">
                 <input type="radio" class="btn-check" name="role" id="student" checked>
                 <label class="btn btn-outline-light btn-sm rounded-start-pill" for="student">STUDENT</label>
@@ -89,14 +95,16 @@
                 <input type="radio" class="btn-check" name="role" id="teacher">
                 <label class="btn btn-outline-light btn-sm rounded-end-pill" for="teacher">TEACHER</label>
               </div>
-            </div>
+            </div> -->
+            
           </div>
 
           <!-- Right Column -->
           <div class="col-12 col-md-6">
             <div class="mb-2">
-              <label class="form-label small fw-semibold">Email</label>
-              <input type="email" id="email" class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill" placeholder="Email">
+              <span><label class="form-label small fw-semibold">Email</label></span>
+              <span><label id="email_val"class="form-label small fw-semibold">validation</label></span>
+              <input type="email" id="email" class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill" placeholder="Email" required>
             </div>
 
             <!-- <div class="mb-2">
@@ -110,19 +118,19 @@
             <div class="mb-2">
               <label class="form-label small fw-semibold">Password (8–12 chars)</label>
               <div class="input-group input-group-sm">
-                <input type="password" id="password" class="form-control p-2 bg-secondary text-white border-0 rounded-pill" placeholder="Password">
+                <input type="password" id="password" class="form-control p-2 bg-secondary text-white border-0 rounded-pill" placeholder="Password" required>
                 <button class="btn btn-outline-light btn-sm rounded-pill"><i class="bi bi-eye"></i></button>
               </div>
             </div>
             
-<!-- 
+
             <div class="mb-3">
-              <label class="form-label small fw-semibold">Confirm Password</label>
+              <label  class="form-label small fw-semibold">Confirm Password</label>
               <div class="input-group input-group-sm">
-                <input type="password" class="form-control p-2 bg-secondary text-white border-0 rounded-pill" placeholder="Confirm Password">
+                <input  type="password" id="confirmPassword" class="form-control p-2 bg-secondary text-white border-0 rounded-pill" placeholder="Confirm Password" required>
                 <button class="btn btn-outline-light btn-sm rounded-pill"><i class="bi bi-eye"></i></button>
               </div>
-            </div> -->
+            </div> 
 
             <div class="d-flex justify-content-center mt-3">
               <button type="submit" id="registerForm" class="btn btn-outline-light btn-sm w-100 rounded-pill">REGISTER</button>
@@ -134,7 +142,7 @@
           </div>
         </div>
       </form>
-
+      </div>
     </div>
   </div>
   <!-- Scripts -->  

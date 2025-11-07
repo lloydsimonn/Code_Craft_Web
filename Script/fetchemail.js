@@ -1,0 +1,51 @@
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
+  import { getAuth, fetchSignInMethodsForEmail } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyD1hz_qEnPnktj74zoURrPwjVo3TPCOeu4",
+    authDomain: "prac-database.firebaseapp.com",
+    projectId: "prac-database",
+    databaseURL: "https://prac-database-default-rtdb.asia-southeast1.firebasedatabase.app/",
+    storageBucket: "prac-database.firebasestorage.app",
+    messagingSenderId: "743528052449",
+    appId: "1:743528052449:web:9b241b31e40551b9e269a0",
+    measurementId: "G-JGQPBHGTSL"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth();
+  console.log("Firebase Initialized");
+  console.log(auth);
+  console.log(app);
+
+// 👇 Function to check if an email exists
+
+
+// Example usage:
+const email = "harley@gmail.com";
+checkIfEmailExists(email);
+
+async function checkIfEmailExists(email) {
+  try {
+    const methods = await fetchSignInMethodsForEmail(auth, email);
+
+    if (methods.length > 0) {
+      console.log("❌ Email already registered in Firebase Auth");
+      return true;
+    } else {
+      console.log("✅ Email is available");
+      return false;
+    }
+
+  } catch (error) {
+    console.error("Error fetching sign-in methods:", error.message);
+    return false;
+  }
+}
