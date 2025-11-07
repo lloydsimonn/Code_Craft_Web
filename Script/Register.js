@@ -64,7 +64,7 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
-  try {
+ try {
     const methods = await fetchSignInMethodsForEmail(auth, "harley@gmail.com");
     console.log(email, methods);
 
@@ -77,21 +77,19 @@ form.addEventListener("submit", async (e) => {
  
   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
   const user = userCredential.user;
-  
- 
-  await set(ref(db, "user/" + user.uid), {
-    fname: fname,
-    mname: mname,
-    lname: lname,
-    uname: uname,
-    snum: snum,
-    role: "Teacher",
-    status: "N/A",
-    player_stats: {
-      progress: "0%"
-    }
-  });
 
+    await set(ref(db, "user/" + user.uid), {
+      fname: fname,
+      mname: mname,
+      lname: lname,
+      uname: uname,
+      snum: snum,
+      role: "Teacher",
+      status: "N/A",
+      player_stats: {
+        progress: "0%"
+      }
+    });
 
   formMessage.style.color = "lightgreen";
   formMessage.textContent = "✅ Registration successful!";
@@ -100,10 +98,6 @@ form.addEventListener("submit", async (e) => {
 
 } catch (error) {
     if (error.code === "auth/email-already-in-use") {
-        // email_val.style.display = "inline";
-        // email_val.textContent = "Email is already in use.";
-        // email_val.style.color = "red";
-
         formMessage.style.color = "red";
         formMessage.textContent = "❌ Email is already in use.";
         registerBtn.disabled = false;
@@ -113,6 +107,4 @@ form.addEventListener("submit", async (e) => {
   
 }
 
-
-  
 });

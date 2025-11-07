@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+  import { getAuth, onAuthStateChanged, signOut} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -10,6 +10,7 @@
     apiKey: "AIzaSyD1hz_qEnPnktj74zoURrPwjVo3TPCOeu4",
     authDomain: "prac-database.firebaseapp.com",
     projectId: "prac-database",
+    databaseURL: "https://prac-database-default-rtdb.asia-southeast1.firebasedatabase.app/",
     storageBucket: "prac-database.firebasestorage.app",
     messagingSenderId: "743528052449",
     appId: "1:743528052449:web:9b241b31e40551b9e269a0",
@@ -30,4 +31,22 @@
        window.location.href = "#";
     }
      
+  });
+
+  
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  logoutBtn.addEventListener("click", () => {
+    signOut(auth)
+      .then(() => {
+        
+     
+        localStorage.removeItem("rememberedEmail"); 
+        window.location.href = "login.html"; // redirect to login
+
+      })
+      .catch((error) => {
+        console.error("Logout error:", error);
+        alert("Error logging out: " + error.message);
+      });
   });

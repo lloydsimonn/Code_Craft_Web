@@ -1,5 +1,5 @@
   // Import the functions you need from the SDKs you need
-
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
   import { getDatabase, ref, get} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 
   
@@ -20,17 +20,15 @@
   };
 
   // Initialize Firebase
-
+  const app = initializeApp(firebaseConfig);
   const db = getDatabase();
   const nameRef = ref(db, "user");
 
 
   console.log("Firebase Initialized");
   console.log(db);
-// Example usage:
-const email = "harley@gmail.com";
 
-get(nameRef)
+ get(nameRef)
   .then((db_val) => {
     if (db_val.exists()) {
       const data = db_val.val();
