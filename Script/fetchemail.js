@@ -1,6 +1,5 @@
-  // Import the functions you need from the SDKs you need
-
-  import { getDatabase, ref, get} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+  import { getDatabase, ref, get, onValue} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 
   
   // TODO: Add SDKs for Firebase products that you want to use
@@ -20,7 +19,7 @@
   };
 
   // Initialize Firebase
-
+  const app = initializeApp(firebaseConfig);
   const db = getDatabase();
   const nameRef = ref(db, "user");
 
@@ -29,6 +28,59 @@
   console.log(db);
 // Example usage:
 const email = "harley@gmail.com";
+
+onValue(nameRef, (snapshot) => {
+  if (snapshot.exists()) {
+    const data_onval = snapshot.val();
+    const tbody = document.querySelector("tbody");
+
+    // 🔹 Clear previous table data before inserting new rows
+    tbody.innerHTML = "";
+
+    for (const key in data_onval) {
+      if (data_onval.hasOwnProperty(key)) {
+        const uid_ref = ref(db, "user/" + key);
+
+        onValue(uid_ref, (snapshot) => {
+          if (snapshot.exists()) {
+            const UID_data = snapshot.val();
+
+            if (
+              UID_data.role === "Teacher" ||
+              UID_data.role === "teacher"
+            ) {
+              const name =
+                UID_data.lname +
+                " " +
+                UID_data.fname +
+                " " +
+                UID_data.mname;
+              const teacherNumber = UID_data.snum;
+              const role = UID_data.role;
+              const uname = UID_data.uname;
+
+              const row = `
+                <tr class="text-center">
+                  <td>${key}</td>
+                  <td>${name}</td>
+                  <td>${teacherNumber}</td>
+                  <td>${role}</td>
+                  <td>${uname}</td>
+                  <td>
+                    <button class="view-gameplay btn btn-success btn-sm rounded-pill">
+                      <i class="fas fa-check"></i> Approve
+                    </button>
+                  </td>
+                </tr>
+              `;
+              tbody.insertAdjacentHTML("beforeend", row);
+            }
+          }
+        }, { onlyOnce: true }); 
+      }
+    }
+  }
+});
 
 get(nameRef)
   .then((db_val) => {
@@ -41,34 +93,34 @@ get(nameRef)
                 
               get(uidRef).then((uid_val) =>{
                 if(uid_val.exists()){
-                  console.log("UID = " + key);
+                
                   const UID_data = uid_val.val();
 
-                  if(UID_data.role == "Teacher"){
-                  // console.log("Name: " + UID_data.lname +" "+ UID_data.fname +" "+ UID_data.mname);
-                  // console.log("Uname: " + UID_data.uname);
-                  const name = UID_data.lname +" "+ UID_data.fname +" "+ UID_data.mname;
-                  const teacherNumber = UID_data.snum;
-                  const role = UID_data.role;
-                  const uname = UID_data.uname;
+                  // if(UID_data.role == "Teacher"){
+                  //  console.log("Name: " + UID_data.lname +" "+ UID_data.fname +" "+ UID_data.mname);
+                  //  console.log("Uname: " + UID_data.uname);
+                  // const name = UID_data.lname +" "+ UID_data.fname +" "+ UID_data.mname;
+                  // const teacherNumber = UID_data.snum;
+                  // const role = UID_data.role;
+                  // const uname = UID_data.uname;
 
-                  const tbody = document.querySelector("tbody");
-                    const row = `
-                        <tr class="text-center">
-                          <td>${key}</td>
-                          <td>${name}</td>
-                          <td>${teacherNumber}</td>
-                          <td>${role}</td>
-                          <td>${uname}</td>
-                          <td>
-                            <button class="view-gameplay btn btn-success btn-sm rounded-pill">
-                              <i class="fas fa-check"></i> Approve
-                            </button>
-                          </td>
-                        </tr>
-                      `;
-                       tbody.insertAdjacentHTML("beforeend", row);
-                    }
+                  // const tbody = document.querySelector("tbody");
+                  //   const row = `
+                  //       <tr class="text-center">
+                  //         <td>${key}</td>
+                  //         <td>${name}</td>
+                  //         <td>${teacherNumber}</td>
+                  //         <td>${role}</td>
+                  //         <td>${uname}</td>
+                  //         <td>
+                  //           <button class="view-gameplay btn btn-success btn-sm rounded-pill">
+                  //             <i class="fas fa-check"></i> Approve
+                  //           </button>
+                  //         </td>
+                  //       </tr>
+                  //     `;
+                  //      tbody.insertAdjacentHTML("beforeend", row);
+                  // }
                 } 
               });
             }
