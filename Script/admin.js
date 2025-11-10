@@ -1,6 +1,6 @@
   // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-import { getDatabase, ref, get, onValue} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+import { getDatabase, ref, get, onValue, update} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 
   
   // TODO: Add SDKs for Firebase products that you want to use
@@ -46,16 +46,8 @@ import { getDatabase, ref, get, onValue} from "https://www.gstatic.com/firebasej
             if (snapshot.exists()) {
               const UID_data = snapshot.val();
   
-              if (
-                UID_data.role === "Teacher" ||
-                UID_data.role === "teacher"
-              ) {
-                const name =
-                  UID_data.lname +
-                  " " +
-                  UID_data.fname +
-                  " " +
-                  UID_data.mname;
+              if (UID_data.role === "Teacher" && UID_data.account_status == "disabled") {
+                const name = UID_data.lname +" "+UID_data.fname +" " +UID_data.mname;
                 const teacherNumber = UID_data.snum;
                 const role = UID_data.role;
                 const uname = UID_data.uname;
@@ -68,13 +60,24 @@ import { getDatabase, ref, get, onValue} from "https://www.gstatic.com/firebasej
                     <td>${role}</td>
                     <td>${uname}</td>
                     <td>
-                      <button class="view-gameplay btn btn-success btn-sm rounded-pill">
+                      <button id="approve" class="approve-btn view-gameplay btn btn-success btn-sm rounded-pill">
                         <i class="fas fa-check"></i> Approve
                       </button>
                     </td>
                   </tr>
                 `;
                 tbody.insertAdjacentHTML("beforeend", row);
+                
+                const approveBtn = tbody.lastElementChild.querySelector(".approve-btn");
+                approveBtn.addEventListener("click", async () => {
+                try {
+                  await update(uid_ref, { account_status: "enabled" });
+                  alert(`${name} approved successfully!`);
+                  
+                } catch (err) {
+                  console.error("Error updating status:", err);
+                }
+              });
               }
             }
           }, { onlyOnce: true }); 

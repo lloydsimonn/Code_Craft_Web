@@ -88,7 +88,8 @@ form.addEventListener("submit", async (e) => {
       status: "N/A",
       player_stats: {
         progress: "0%"
-      }
+      },
+      account_status: "disabled"
     });
 
   formMessage.style.color = "lightgreen";
