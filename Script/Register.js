@@ -40,8 +40,39 @@
   const formMessage = document.getElementById("formMessage");
   const registerBtn = document.getElementById("registerForm"); // your button
 
+  email_val.style.display = "none";
 
+  // toggle password eye
+  const passwordInput = document.getElementById('password');
+  const togglePasswordIcon = document.getElementById('togglePassword');
+ 
+  togglePasswordIcon.addEventListener('click', function () {
+     
+      const isPassword = passwordInput.getAttribute('type') === 'password';
+      passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
 
+      
+      const icon = togglePasswordIcon.querySelector('i');
+      icon.classList.toggle('fa-eye');
+      icon.classList.toggle('fa-eye-slash');
+    });
+
+  const confirmPasswordInput = document.getElementById('confirmPassword'); // Make sure the ID matches your HTML
+  const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+
+  toggleConfirmPassword.addEventListener('click', function () {
+
+    const isPassword = confirmPasswordInput.getAttribute('type') === 'password';
+    confirmPasswordInput.setAttribute('type', isPassword ? 'text' : 'password');
+
+    const icon = toggleConfirmPassword.querySelector('i');
+    if (icon) {
+      icon.classList.toggle('fa-eye');
+      icon.classList.toggle('fa-eye-slash');
+    }
+  });
+
+ // submit
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   registerBtn.disabled = true;
@@ -60,7 +91,7 @@ form.addEventListener("submit", async (e) => {
   if (confirmPassword !== password) {
     formMessage.style.color = "orange";
     formMessage.textContent = "⚠️ Passwords do not match.";
-    registerBtn.disabled = false;
+    registerBtn.disabled = false; 
     return;
   }
 

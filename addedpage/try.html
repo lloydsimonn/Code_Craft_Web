@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Show Password Toggle</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    .password-container {
+      position: relative;
+      width: 220px; /* Adjust as needed */
+    }
+
+    #password {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      padding-right: 35px; /* Space for the icon */
+    }
+
+    #togglePassword {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="password-container">
+    <input type="password" id="password" placeholder="Enter your password">
+    <span id="togglePassword">
+      <i class="fa fa-eye-slash" aria-hidden="true"></i>
+    </span>
+  </div>
+
+  <script>
+    const passwordInput = document.getElementById('password');
+    const togglePasswordIcon = document.getElementById('togglePassword');
+
+    togglePasswordIcon.addEventListener('click', function () {
+      // Toggle the input type between password and text
+      const isPassword = passwordInput.getAttribute('type') === 'password';
+      passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+
+      // Toggle icon between eye and eye-slash
+      const icon = togglePasswordIcon.querySelector('i');
+      icon.classList.toggle('fa-eye');
+      icon.classList.toggle('fa-eye-slash');
+    });
+  </script>
+
+</body>
+</html>

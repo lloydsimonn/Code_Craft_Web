@@ -49,3 +49,32 @@ body {
   box-shadow: none;
   border-color: #fff;
 }
+
+     .password-container {
+      position: relative;
+      
+    }
+
+    #password {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      padding-right: 35px; /* Space for the icon */
+    }
+
+    #togglePassword {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #555;
+    }
+    #toggleConfirmPassword {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #555;
+    }

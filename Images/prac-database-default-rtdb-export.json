@@ -1,0 +1,69 @@
+{
+  "user": {
+    "AFrWBGslWZbGPYmRPTlrYw413752": {
+      "account_status": "enabled",
+      "fname": "lloyd",
+      "lname": "sim",
+      "mname": "c",
+      "player_stats": {
+        "progress": "0%"
+      },
+      "role": "Teacher",
+      "snum": "23090932",
+      "status": "N/A",
+      "uname": "tamsy"
+    },
+    "MJz2dd02sNaLE2Zq81i8bs4FwSD3": {
+      "account_status": "enabled",
+      "fname": "for approval",
+      "lname": "rove",
+      "mname": "app",
+      "player_stats": {
+        "progress": "0%"
+      },
+      "role": "Teacher",
+      "snum": "29302932",
+      "status": "N/A",
+      "uname": "isagi"
+    },
+    "MYbspoUceZNw9S6jdEZOj6hfZQC2": {
+      "account_status": "disabled",
+      "fname": "lloyd",
+      "lname": "simon",
+      "mname": "c",
+      "player_stats": {
+        "progress": "0%"
+      },
+      "role": "Teacher",
+      "snum": "2022307689",
+      "status": "N/A",
+      "uname": "aifefe"
+    },
+    "cIpC0sNZRTa372SdwrRDc3DDHU42": {
+      "account_status": "disabled",
+      "fname": "ben",
+      "lname": "ten",
+      "mname": "hi",
+      "player_stats": {
+        "progress": "0%"
+      },
+      "role": "Teacher",
+      "snum": "203232941",
+      "status": "N/A",
+      "uname": "ben10"
+    },
+    "ogchZCKhhmcoC1G6bagRNAeMY6u2": {
+      "account_status": "disabled",
+      "fname": "lloyd",
+      "lname": "simon",
+      "mname": "c",
+      "player_stats": {
+        "progress": "0%"
+      },
+      "role": "Teacher",
+      "snum": "2022307689",
+      "status": "N/A",
+      "uname": "aifefe"
+    }
+  }
+}

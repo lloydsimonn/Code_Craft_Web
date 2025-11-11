@@ -24,12 +24,21 @@
   cant_go_back(auth);
   
   const showPassword = document.getElementById("showPassword");
-  
-    showPassword.addEventListener("change", () => {
-      passwordInput.type = showPassword.checked ? "text" : "password";
+    const passwordInput = document.getElementById('password');
+    const togglePasswordIcon = document.getElementById('togglePassword');
+
+    togglePasswordIcon.addEventListener('click', function () {
+      // Toggle the input type between password and text
+      const isPassword = passwordInput.getAttribute('type') === 'password';
+      passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+
+      // Toggle icon between eye and eye-slash
+      const icon = togglePasswordIcon.querySelector('i');
+      icon.classList.toggle('fa-eye');
+      icon.classList.toggle('fa-eye-slash');
     });
     const emailInput = document.getElementById("email");
-    const passwordInput = document.getElementById("password");
+
     const rememberMe = document.getElementById("remember");
     const form = document.querySelector("form");
 
