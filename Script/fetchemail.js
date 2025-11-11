@@ -2,6 +2,7 @@
   import { getDatabase, ref, get, onValue} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 
   
+
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -23,7 +24,7 @@
   const db = getDatabase();
   const nameRef = ref(db, "user");
 
-
+  
   console.log("Firebase Initialized");
   console.log(db);
 // Example usage:

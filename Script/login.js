@@ -1,6 +1,6 @@
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
+  import { getDatabase, onValue} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
   import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
@@ -11,6 +11,7 @@
     apiKey: "AIzaSyD1hz_qEnPnktj74zoURrPwjVo3TPCOeu4",
     authDomain: "prac-database.firebaseapp.com",
     projectId: "prac-database",
+     databaseURL: "https://prac-database-default-rtdb.asia-southeast1.firebasedatabase.app/",
     storageBucket: "prac-database.firebasestorage.app",
     messagingSenderId: "743528052449",
     appId: "1:743528052449:web:9b241b31e40551b9e269a0",
@@ -20,19 +21,21 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const auth = getAuth();
+  const db = getDatabase();
   console.log("Firebase Initialized");
+
   cant_go_back(auth);
-  
+  // toggle eye password
   const showPassword = document.getElementById("showPassword");
     const passwordInput = document.getElementById('password');
     const togglePasswordIcon = document.getElementById('togglePassword');
 
     togglePasswordIcon.addEventListener('click', function () {
-      // Toggle the input type between password and text
+   
       const isPassword = passwordInput.getAttribute('type') === 'password';
       passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
 
-      // Toggle icon between eye and eye-slash
+   
       const icon = togglePasswordIcon.querySelector('i');
       icon.classList.toggle('fa-eye');
       icon.classList.toggle('fa-eye-slash');
@@ -42,7 +45,7 @@
     const rememberMe = document.getElementById("remember");
     const form = document.querySelector("form");
 
-
+ // saved data
 window.addEventListener("DOMContentLoaded", () => {
   const savedData = localStorage.getItem("rememberedUser");
 
@@ -77,7 +80,7 @@ form.addEventListener("submit", (e) => {
           window.location.href = "../index.html";
   })
   .catch((error) => {
-    window.alert("Login Failed!");  
+    window.alert("Login Failed!");
       const errorCode = error.code;
       const errorMessage = error.message;
       alert("Login failed: " + errorMessage);
