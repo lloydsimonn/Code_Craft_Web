@@ -17,9 +17,7 @@
     measurementId: "G-JGQPBHGTSL"
   };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+ 
   console.log("Firebase Initialized");
 
 
@@ -35,7 +33,7 @@
         
      
         localStorage.removeItem("rememberedEmail"); 
-        window.location.href = "login.html"; // redirect to login
+        window.location.href = "../Html/login.html"; // redirect to login
 
       })
       .catch((error) => {

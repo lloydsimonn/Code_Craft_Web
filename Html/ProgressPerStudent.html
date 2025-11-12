@@ -17,48 +17,8 @@
 
 <div class="container-fluid">
   <div class="row">
-
-    <div class="d-none d-lg-block bg-secondary text-white p-3 position-fixed top-0 start-0 vh-100" style="width: 16.666%; z-index: 1000;">
-      <h5 class="fw-bold mb-4">Navigation</h5>
-      <ul class="nav nav-pills flex-column mb-auto">
-        <li>
-          <a href="Classroom.html" class="nav-link text-white fw-bold">
-            <i class="bi bi-people me-2"></i> Classrooms
-          </a>
-        </li>
-        <li>
-          <a href="Assesment.html" class="nav-link text-white fw-bold">
-            <i class="bi bi-journal-text me-2"></i> Assessments
-          </a>
-        </li>
-      </ul>
-      <div class="mt-auto">
-        <a href="Create_Assesment.html">
-          <button class="btn btn-dark w-100">Create an Assessment</button>
-        </a>
-      </div>
-    </div>
+    <div id="sidebar-placeholder"></div>
     
-    <div class="offcanvas offcanvas-start bg-secondary text-white p-3" tabindex="-1" id="sidebarMenu">
-      <h5 class="fw-bold mb-4">Navigation</h5>
-      <ul class="nav nav-pills flex-column mb-auto">
-        <li>
-          <a href="Classroom.html" class="nav-link text-white fw-bold">
-            <i class="bi bi-people me-2"></i> Classrooms
-          </a>
-        </li>
-        <li>
-          <a href="Assessment.html" class="nav-link text-white fw-bold">
-            <i class="bi bi-journal-text me-2"></i> Assessments
-          </a>
-        </li>
-      </ul>
-      <div class="mt-auto">
-        <a href="Create_Assesment.html">
-          <button class="btn btn-dark w-100">Create an Assessment</button>
-        </a>
-      </div>
-    </div>
 
     <div class="col-12 col-lg-10 offset-lg-2 p-4">
         <div class="dashboard-container">
@@ -107,7 +67,7 @@
                     </div>
                     <div class="data-panel-item-stacked">
                         <p class="data-label">School ID:</p>
-                        <div class="data-panel-value">K12-059</div>
+                        <div class="data-panel-value">2022303498</div>
                     </div>
                 </div>
                 
@@ -165,43 +125,28 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Assessment Name</th>
-                            <th>Date Completed</th>
-                            <th>Date Completed</th>
-                            <th>Student Score</th>
-                            <th>Student Score</th>
-                            <th>Time Spent</th>
-                            <th>Time Spent</th>
+                            <th>Module</th>
+                            <th>Completion Rate</th>
+                            <th>Last Concept Attempted</th>
+                            <th>Common Mistake</th>
+                            <th>Average Time per Task:</th>
+                            <th>Needs Review In</th>
+                            <th>Last Assessment Score</th>
+                            <th>Attempts on Last Task</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>CDAE/35231</td>
-                            <td>935/1000</td>
-                            <td>01/35/30225</td>
-                            <td>185 B10033</td>
-                            <td>73 2343</td>
-                            <td>56 3241</td>
-                            <td>133 12123</td>
+                            <td>Variables</td>
+                            <td>75%</td>
+                            <td>Declaring a variable</td>
+                            <td>== instead of =</td>
+                            <td>2min 12sec</td>
+                            <td>Variables</td>
+                            <td>78%</td>
+                            <td>3</td>
                         </tr>
-                        <tr>
-                            <td>CDNEI/59232</td>
-                            <td>958/1000</td>
-                            <td>01/13/38025</td>
-                            <td>515 N1033</td>
-                            <td>04 3846</td>
-                            <td>04 3347</td>
-                            <td>9337 L183</td>
-                        </tr>
-                        <tr>
-                            <td>CORE2/08322</td>
-                            <td>985/1000</td>
-                            <td>01/13/39025</td>
-                            <td>136 B5025</td>
-                            <td>03 3643</td>
-                            <td>83 8542</td>
-                            <td>387 L097</td>
-                        </tr>
+                        
                     </tbody>
                 </table>
             </div>
@@ -214,5 +159,6 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="../Script/nav.js"></script>
+  <script src="../Script/Sidebar.js"></script>
 </body>
 </html>

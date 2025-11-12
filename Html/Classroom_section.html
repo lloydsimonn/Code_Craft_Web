@@ -23,65 +23,28 @@
 
 <div class="container-fluid">
   <div class="row">
+      <div id="sidebar-placeholder"></div>
 
-    <div class="d-none d-lg-block bg-secondary text-white p-3 position-fixed top-0 start-0 vh-100" style="width: 16.666%">
-      <h5 class="fw-bold mb-4">Navigation</h5>
-      <ul class="nav nav-pills flex-column mb-auto">
-        <li>
-          <a href="Classroom.html" class="nav-link text-white fw-bold">
-            <i class="bi bi-people me-2"></i> Classrooms
-          </a>
-        </li>
-        <li>
-          <a href="Assesment.html" class="nav-link text-white fw-bold">
-            <i class="bi bi-journal-text me-2"></i> Assessments
-          </a>
-        </li>
-      </ul>
-      <div class="mt-auto">
-        <a href="Create_Assesment.html">
-          <button class="btn btn-dark w-100">Create an Assessment</button>
-        </a>
-      </div>
-    </div>
-
-      <div class="offcanvas offcanvas-start bg-secondary text-white p-3" tabindex="-1" id="sidebarMenu">
-        <h5 class="fw-bold mb-4">Navigation</h5>
-        <ul class="nav nav-pills flex-column mb-auto">
-          <li>
-            <a href="Classroom.html" class="nav-link text-white fw-bold">
-              <i class="bi bi-people me-2"></i> Classrooms
-            </a>
-          </li>
-          <li>
-            <a href="Assessment.html" class="nav-link text-white fw-bold">
-              <i class="bi bi-journal-text me-2"></i> Assessments
-            </a>
-          </li>
-        </ul>
-        <div class="mt-auto">
-          <a href="Create_Assesment.html">
-            <button class="btn btn-dark w-100">Create an Assessment</button>
-          </a>
-        </div>
-      </div>
 
     <div class="col-12 col-lg-10 offset-lg-2 p-4">
-      <!-- <h6 class="fw-bold">CLASS 4A</h6>
-      <p class="small text-muted">CLASS CODE: 000000001</p> -->
+      <div class="ps-5">
+           <h5 class="fw-bold">CLASS 4A</h5>
+            <h5>SY: 2025-2026</h5>
+            <p class="small text-muted">CLASS CODE: #SDASDA1</p>
+      </div>
 
         <div class="container">
           <div class="header">
               <h1 class="title">STUDENTS LIST</h1>
               <div class="filters">
-                  <label for="grade-section">Grade & Section :</label>
+                  <!-- <label for="grade-section">Grade & Section :</label>
                   <select id="grade-section">
                       <option value="">-- Select --</option>
                   </select>
                   <label for="school-year">School Year :</label>
                   <select id="school-year">
                       <option value="">-- Select --</option>
-                  </select>
+                  </select> -->
               </div>
           </div>
 
@@ -94,6 +57,7 @@
                           <th>School ID</th>
                           <th>Grade & Section</th>
                           <th>School Year</th>
+                          <th>Status</th>
                           <th></th> </tr>
                   </thead>
                   <tbody>
@@ -103,10 +67,13 @@
                           <td>2020123022</td>
                           <td>4A</td>
                           <td>2024-2025</td>
+                          <td>Online</td>
                           <td>
-                              <button class="view-gameplay">
+                              <a href="ProgressPerStudent.html" class="text-decoration-none">
+                                <button class="view-gameplay">
                                   <i class="fas fa-gamepad"></i> VIEW GAMEPLAY
                               </button>
+                              </a>
                           </td>
                       </tr>
                       <tr>
@@ -115,22 +82,28 @@
                           <td>20202890</td>
                           <td>4A</td>
                           <td>2024-2025</td>
+                          <td>Online</td>
                           <td>
-                              <button class="view-gameplay">
+                              <a href="ProgressPerStudent.html" class="text-decoration-none">
+                                <button class="view-gameplay">
                                   <i class="fas fa-gamepad"></i> VIEW GAMEPLAY
                               </button>
+                              </a>
                           </td>
                       </tr>
                       <tr>
                           <td>000000003</td>
                           <td>Kaze Shigami</td>
                           <td>2022457954</td>
-                          <td>1B</td>
+                          <td>4A</td>
                           <td>2025-2026</td>
+                          <td>Online</td>
                           <td>
-                              <button class="view-gameplay">
+                              <a href="ProgressPerStudent.html" class="text-decoration-none">
+                                <button class="view-gameplay">
                                   <i class="fas fa-gamepad"></i> VIEW GAMEPLAY
                               </button>
+                              </a>
                           </td>
                       </tr>
                   </tbody>
@@ -146,5 +119,6 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="../Script/nav.js"></script>
+  <script src="../Script/Sidebar.js"></script>
 </body>
 </html>

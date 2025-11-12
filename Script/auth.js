@@ -9,7 +9,7 @@
   const firebaseConfig = {
     apiKey: "AIzaSyD1hz_qEnPnktj74zoURrPwjVo3TPCOeu4",
     authDomain: "prac-database.firebaseapp.com",
-    projectId: "prac-database",
+    projectId: "prac-database", 
     databaseURL: "https://prac-database-default-rtdb.asia-southeast1.firebasedatabase.app/",
     storageBucket: "prac-database.firebasestorage.app",
     messagingSenderId: "743528052449",
@@ -34,19 +34,3 @@
   });
 
   
-  const logoutBtn = document.getElementById("logoutBtn");
-
-  logoutBtn.addEventListener("click", () => {
-    signOut(auth)
-      .then(() => {
-        
-     
-        localStorage.removeItem("rememberedEmail"); 
-        window.location.href = "login.html"; // redirect to login
-
-      })
-      .catch((error) => {
-        console.error("Logout error:", error);
-        alert("Error logging out: " + error.message);
-      });
-  });
