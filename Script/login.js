@@ -1,10 +1,10 @@
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-  import { getDatabase, onValue} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
-  import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+  import { getDatabase, onValue, ref, get} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+  import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
-
+ 
   // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   const firebaseConfig = {
@@ -23,9 +23,21 @@
   const auth = getAuth();
   const db = getDatabase();
   console.log("Firebase Initialized");
-
-  cant_go_back(auth);
+  
+  cant_go_back(auth, db);
+  // form validation
+  const validation = localStorage.getItem("validation");
+  const formMessage = document.getElementById("formMessage");
+  if (validation) {
+    formMessage.textContent = validation;
+    formMessage.style.setProperty("color", "green", "important");   
+    formMessage.style.fontSize = "1.25rem";
+    formMessage.style.fontWeight = "600";
+    
+    localStorage.removeItem("validation"); 
+  }
   // toggle eye password
+
   const showPassword = document.getElementById("showPassword");
     const passwordInput = document.getElementById('password');
     const togglePasswordIcon = document.getElementById('togglePassword');
@@ -74,49 +86,87 @@ form.addEventListener("submit", (e) => {
 
   signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-          const user = userCredential.user;
-          window.alert("Login successful!");
-          handleLogin();
-          window.location.href = "../index.html";
+
+        const user = userCredential.user;
+        handleLogin();
+          
   })
   .catch((error) => {
-    window.alert("Login Failed!");
+
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert("Login failed: " + errorMessage);
+
+    formMessage.textContent = "Invalid Credentials";
+    formMessage.style.setProperty("color", "red", "important");
+    formMessage.style.fontSize = "1.25rem";
+    formMessage.style.fontWeight = "600";   
+    formMessage.style.display = "block";   
+
+
   });
 });
 
 function handleLogin() {
   if (rememberMe.checked) {
-    // Save email + password as JSON string in localStorage
+
     const userData = {
       email: emailInput.value,
       password: passwordInput.value
     };
     localStorage.setItem("rememberedUser", JSON.stringify(userData));
-      window.alert("success json" + userData);
+
   } else {
-    // Remove saved data if "Remember Me" is unchecked
+ 
     localStorage.removeItem("rememberedUser");
-    window.alert("no interaction");
+
   }
 
  
 }
 
-  function cant_go_back(auth){
-        onAuthStateChanged(auth, (user) => {
-        if (user) {
-          window.location.href = "../index.html";
+function cant_go_back(auth, db) {
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      try {
+        
+        const snapshot = await get(ref(db, "user"));
+        if (snapshot.exists()) {
+          const users = snapshot.val();
+          let userData = null;
+
+          for (const key in users) {
+            if (users.hasOwnProperty(key) && users[key].email === user.email) {
+              userData = users[key];
+              break;
+            }
+          }
+
+          if (userData) {
+            if (userData.account_status === "enabled") {
+             
+              if (userData.role === "Teacher") {
+                window.location.href = "../index.html";
+              } else if (userData.role === "admin") {
+                window.location.href = "admin.html";
+              }
+            } else {
+              
+              await signOut(auth);
+              formMessage.textContent = "Your account is not approved yet";
+              formMessage.style.setProperty("color", "red", "important");
+              formMessage.style.fontSize = "1.25rem";
+              formMessage.style.fontWeight = "600"; 
+            }
+          } else {
+           
+            await signOut(auth);
+            formMessage.textContent = "invalid credentials";
+          }
         }
-        else{
-           window.location.href = "#";
-        }
-      });
-  }
-
-
-
-
+      } catch (err) {
+        console.error("Error checking user:", err);
+      }
+    }
+  });
+}
 

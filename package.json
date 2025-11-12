@@ -1,12 +1,12 @@
 {
   "dependencies": {
+    "firebase-admin": "^13.6.0",
+    "firebase-functions": "^7.0.0",
     "flag": "^5.0.1"
   },
   "name": "code_craft_web",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,5 +20,6 @@
   "bugs": {
     "url": "https://github.com/lloydsimonn/Code_Craft_Web/issues"
   },
-  "homepage": "https://github.com/lloydsimonn/Code_Craft_Web#readme"
+  "homepage": "https://github.com/lloydsimonn/Code_Craft_Web#readme",
+  "description": ""
 }

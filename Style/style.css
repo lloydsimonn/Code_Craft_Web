@@ -33,7 +33,13 @@ body {
     transform: scaleX(1);
     opacity: 1;
   }
+
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
 }
+  
 
 .form-control-animate {
   animation: stretchSidesSmooth 1s ease-in-out forwards;
@@ -49,6 +55,8 @@ body {
   box-shadow: none;
   border-color: #fff;
 }
+
+
 
      .password-container {
       position: relative;

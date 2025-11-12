@@ -1,7 +1,7 @@
   // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
 import { getDatabase, ref, get, onValue, update} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
-
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
   
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
@@ -23,13 +23,64 @@ import { getDatabase, ref, get, onValue, update} from "https://www.gstatic.com/f
     const app = initializeApp(firebaseConfig);
     const db = getDatabase();
     const nameRef = ref(db, "user");
-  
+    const auth = getAuth();
   
     console.log("Firebase Initialized");
     console.log(db);
   // Example usage:
   const email = "harley@gmail.com";
-  
+
+  onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    // Not logged in, redirect to login page
+    window.location.href = "../login.html";
+    return;
+  }
+
+  try {
+    const snapshot = await get(ref(db, "user"));
+    if (!snapshot.exists()) {
+      await signOut(auth);
+      window.location.href = "../Html/login.html";
+      return;
+    }
+
+    const users = snapshot.val();
+    let matchedUser = null;
+
+    // Find the user in DB
+    for (const key in users) {
+      if (users.hasOwnProperty(key) && users[key].email === user.email) {
+        matchedUser = users[key];
+        break;
+      }
+    }
+
+    if (!matchedUser) {
+      await signOut(auth);
+      window.location.href = "../Html/login.html";
+      return;
+    }
+
+    // Only allow admins with enabled accounts
+    if (matchedUser.role !== "admin" || matchedUser.account_status !== "enabled") {
+      await signOut(auth);
+      window.location.href = "../Html/login.html";
+      alert("You do not have permission to access this page");
+      return;
+    }
+
+    // ✅ If we reach here, user is an approved admin
+    console.log("Admin verified, page loaded");
+
+  } catch (err) {
+    console.error("Error verifying admin:", err);
+    await signOut(auth);
+   window.location.href = "../Html/login.html";
+  }
+});
+  const Acc_validation = document.getElementById("Acc_validation");
+
   onValue(nameRef, (snapshot) => {
     if (snapshot.exists()) {
       const data_onval = snapshot.val();
@@ -51,14 +102,14 @@ import { getDatabase, ref, get, onValue, update} from "https://www.gstatic.com/f
                 const teacherNumber = UID_data.snum;
                 const role = UID_data.role;
                 const uname = UID_data.uname;
-  
+                const email = UID_data.email;
                 const row = `
                   <tr class="text-center">
-                    <td>${key}</td>
+                    <td>${email}</td>
                     <td>${name}</td>
                     <td>${teacherNumber}</td>
                     <td>${role}</td>
-                    <td>${uname}</td>
+                    
                     <td>
                       <button id="approve" class="approve-btn view-gameplay btn btn-success btn-sm rounded-pill">
                         <i class="fas fa-check"></i> Approve
@@ -67,7 +118,7 @@ import { getDatabase, ref, get, onValue, update} from "https://www.gstatic.com/f
                   </tr>
                 `;
                 tbody.insertAdjacentHTML("beforeend", row);
-                
+                Acc_validation.style.display = "none";
                 const approveBtn = tbody.lastElementChild.querySelector(".approve-btn");
                 approveBtn.addEventListener("click", async () => {
                 try {
@@ -78,6 +129,8 @@ import { getDatabase, ref, get, onValue, update} from "https://www.gstatic.com/f
                   console.error("Error updating status:", err);
                 }
               });
+              }else{
+                Acc_validation.style.display = "block";
               }
             }
           }, { onlyOnce: true }); 

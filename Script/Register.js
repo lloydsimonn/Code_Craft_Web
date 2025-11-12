@@ -4,11 +4,12 @@
   import {
     getAuth,
     fetchSignInMethodsForEmail,
-    createUserWithEmailAndPassword  
+    createUserWithEmailAndPassword ,
+    signOut
     
   } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
   import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
-
+  
   
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
@@ -85,7 +86,7 @@ form.addEventListener("submit", async (e) => {
   const password = document.getElementById("password").value.trim();
   const confirmPassword = document.getElementById("confirmPassword").value.trim();  
   const snum = document.getElementById("snum").value.trim();
- 
+  const department = document.getElementById("department").value.trim();
  
   
   if (confirmPassword !== password) {
@@ -111,6 +112,7 @@ form.addEventListener("submit", async (e) => {
 
     await set(ref(db, "user/" + user.uid), {
       fname: fname,
+      email: email,
       mname: mname,
       lname: lname,
       uname: uname,
@@ -120,13 +122,16 @@ form.addEventListener("submit", async (e) => {
       player_stats: {
         progress: "0%"
       },
-      account_status: "disabled"
+      account_status: "disabled",
+      department: department
     });
 
-  formMessage.style.color = "lightgreen";
-  formMessage.textContent = "✅ Registration successful!";
-  form.reset();
-  window.location.href = "login.html";
+      formMessage.style.color = "lightgreen";
+      formMessage.textContent = "✅ Registration successful!";
+      form.reset();
+      await signOut(auth);
+      localStorage.setItem("validation", "Account created! Please wait for admin approval.");
+      window.location.href = "login.html";
 
 } catch (error) {
     if (error.code === "auth/email-already-in-use") {

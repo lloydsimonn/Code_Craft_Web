@@ -1,42 +1,23 @@
-// Import Firebase Functions and Admin SDK
-const functions = require("firebase-functions");
-const admin = require("firebase-admin");
 
-// Initialize Admin SDK
-admin.initializeApp();
 
-/**
- * Cloud Function: getUIDByEmail
- * This function returns the UID of a user given their email.
- * Only authenticated users can call this function.
- */
-exports.getUIDByEmail = functions.https.onCall(async (data, context) => {
-  const email = data.email;
+  
+const apiKey = "AIzaSyD1hz_qEnPnktj74zoURrPwjVo3TPCOeu4"; // Firebase Web API Key
+const email = "email@g.com";
 
-  // Check if the request is authenticated
-  if (!context.auth) {
-    throw new functions.https.HttpsError(
-      "unauthenticated",
-      "You must be signed in to call this function."
-    );
-  }
-
-  // Validate email
-  if (!email || typeof email !== "string") {
-    throw new functions.https.HttpsError(
-      "invalid-argument",
-      "A valid email must be provided."
-    );
-  }
-
-  try {
-    // Get user by email
-    const userRecord = await admin.auth().getUserByEmail(email);
-
-    // Return the UID
-    return { uid: userRecord.uid };
-  } catch (error) {
-    // Handle user not found
-    throw new functions.https.HttpsError("not-found", "User not found");
-  }
-});
+fetch(`https://identitytoolkit.googleapis.com/v1/accounts:createAuthUri?key=${apiKey}`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    identifier: email,
+    continueUri: ""
+  })
+})
+  .then(res => res.json())
+  .then(data => {
+    if (data.registered) {
+      console.log("Email already exists in Firebase ✅");
+    } else {
+      console.log("Email is available 🆓");
+    }
+  })
+  .catch(error => console.error("Error checking email:", error));
