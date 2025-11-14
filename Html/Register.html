@@ -36,6 +36,16 @@
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
       
     }
+    .no-spinner::-webkit-outer-spin-button,
+    .no-spinner::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Remove spinner arrows in Firefox */
+    .no-spinner[type=number] {
+        -moz-appearance: textfield;
+    }
   </style>
 </head>
 <body class="bg-light vh-100 d-flex flex-column">
@@ -44,7 +54,7 @@
   <div class="top-bar d-flex justify-content-between align-items-center p-3">
     <span class="fw-bold">CODECRAFT</span>
     <div>
-      <button class="btn btn-outline-dark btn-sm me-2 rounded-pill" disabled>Classroom</button>
+      <!-- <button class="btn btn-outline-dark btn-sm me-2 rounded-pill" disabled>Classroom</button> -->
       <button class="btn btn-dark btn-sm rounded-circle" disabled><i class="bi bi-person"></i></button>
     </div>
   </div>
@@ -67,27 +77,30 @@
           <div class="col-12 col-md-6">
             <div class="mb-2">
               <label class="form-label small fw-semibold">First Name</label>
-              <input type="text" id="fname" class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill" placeholder="First Name" required>
+              <input type="text" autocomplete="off" id="fname" class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill" placeholder="First Name" required>
             </div>
 
             <div class="mb-2">
               <label class="form-label small fw-semibold">Middle Name</label>
-              <input type="text" id="mname" class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill" placeholder="Middle Name" required>
+              <input type="text" autocomplete="off" id="mname" class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill" placeholder="Middle Name" required>
             </div>
 
             <div class="mb-2">
               <label class="form-label small fw-semibold">Last Name</label>
-              <input type="text" id="lname" class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill" placeholder="Last Name" required>
+              <input type="text" autocomplete="off" id="lname" class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill" placeholder="Last Name" required>
             </div>
 
             <div class="mb-2">
               <label class="form-label small fw-semibold">ID Number</label>
-              <input type="text" id="snum" class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill" placeholder="ID Number" required>
+              <input type="number" autocomplete="off" id="snum"
+              class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill no-spinner"
+              placeholder="ID Number" required>
+
             </div>
 
             <div class="mb-3">
               <label class="form-label small fw-semibold">Username</label>
-              <input type="text" id="uname" class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill" placeholder="Username" required>
+              <input type="text" autocomplete="off" id="uname" class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill" placeholder="Username" required>
             </div>  
             
           <div class="mb-1">
@@ -114,7 +127,7 @@
             <div class="mb-2">
               <span><label class="form-label small fw-semibold">Email</label></span>
               <span><label id="email_val"class="form-label small fw-semibold">validation</label></span>
-              <input type="email" id="email" class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill" placeholder="Email" required>
+              <input type="email" autocomplete="off" id="email" class="form-control form-control-sm p-2 bg-secondary text-white border-0 rounded-pill" placeholder="Email" required>
             </div>
 
             <!-- <div class="mb-2">
@@ -126,9 +139,9 @@
             </div>  -->
 
             <div class="mb-2">
-              <label class="form-label small fw-semibold ">Password (8–12 chars)</label>
+              <label class="form-label small fw-semibold " id="strongPassword">Password (8–12 chars with uppercase, lowercase, number, and symbol.)</label>
               <div class="password-container mb-3  input-group-sm">
-                <input type="password"  class="form-control form-control-lg rounded-pill bg-secondary text-white fw-bold border-0" placeholder="Password" id="password">
+                <input type="password"  class="form-control form-control-lg rounded-pill bg-secondary text-white fw-bold border-0" placeholder="Password" id="password" required>
                   <span id="togglePassword" class="ms-n3">
                     <i class="fa fa-eye-slash text-white" aria-hidden="true"></i>
                   </span>
@@ -138,7 +151,7 @@
             
 
             <div class="mb-4">
-              <label  class="form-label small fw-semibold">Confirm Password</label>
+              <label  class="form-label small fw-semibold" id="confirmPasswordLabel">Confirm Password</label>
               <div class="password-container mb-3  input-group-sm">
                 <input  type="password" id="confirmPassword" class="form-control p-2 bg-secondary text-white border-0 rounded-pill" placeholder="Confirm Password" required>
                 <span id="toggleConfirmPassword" class="ms-n3">

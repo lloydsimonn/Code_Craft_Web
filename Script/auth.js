@@ -29,6 +29,7 @@
     }
     else{
        window.location.href = "#";
+       document.body.style.display = "block";
     }
      
   });

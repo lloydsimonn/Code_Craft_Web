@@ -73,42 +73,69 @@
     }
   });
 
- // submit
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  registerBtn.disabled = true;
-  formMessage.style.textContent = "";
+  formMessage.style.textContent = ""; // clear previous messages
+
   const fname = document.getElementById("fname").value.trim();
   const mname = document.getElementById("mname").value.trim();
   const lname = document.getElementById("lname").value.trim();
   const uname = document.getElementById("uname").value.trim();
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
-  const confirmPassword = document.getElementById("confirmPassword").value.trim();  
+  const confirmPassword = document.getElementById("confirmPassword").value.trim();
   const snum = document.getElementById("snum").value.trim();
   const department = document.getElementById("department").value.trim();
- 
-  
-  if (confirmPassword !== password) {
-    formMessage.style.color = "orange";
-    formMessage.textContent = "⚠️ Passwords do not match.";
-    registerBtn.disabled = false; 
-    return;
+  const strongPasswordLabel = document.getElementById("strongPassword");
+  const confirmPasswordLabel = document.getElementById("confirmPasswordLabel");
+
+  // --- Password validation ---
+  const lengthValid = password.length >= 8 && password.length <= 12;
+  const hasLower = /[a-z]/.test(password);
+  const hasUpper = /[A-Z]/.test(password);
+  const hasNumber = /\d/.test(password);
+  const hasSymbol = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+
+  const missing = [];
+  if (!lengthValid) missing.push("8–12 chars");
+  if (!hasUpper) missing.push("uppercase");
+  if (!hasLower) missing.push("lowercase");
+  if (!hasNumber) missing.push("number");
+  if (!hasSymbol) missing.push("symbol");
+
+  if (missing.length > 0) {
+    strongPasswordLabel.textContent = "Missing: " + missing.join(", ");
+    strongPasswordLabel.style.color = "red";
+    return; // stop submission if password weak
+  } else {
+    strongPasswordLabel.textContent = "Strong password ✅";
+    strongPasswordLabel.style.color = "green";
   }
 
- try {
-    const methods = await fetchSignInMethodsForEmail(auth, "harley@gmail.com");
-    console.log(email, methods);
+  if (confirmPassword !== password) {
+    confirmPasswordLabel.textContent = "Passwords do not match ❌";
+    confirmPasswordLabel.style.color = "red";
+    return; // stop submission if confirm password does not match
+  } else {
+    confirmPasswordLabel.textContent = "Passwords match ✅";
+    confirmPasswordLabel.style.color = "green";
+  }
+  // --- End of password validation ---
 
+  // --- Start actual submission ---
+  registerBtn.disabled = true; // disable now since submission starts
+
+  try {
+    const methods = await fetchSignInMethodsForEmail(auth, email);
     if (methods.length > 0) {
-      
-    } 
-    else {
-      email_val.textContent = "";
+      formMessage.style.color = "red";
+      formMessage.textContent = "❌ Email is already in use.";
+      registerBtn.disabled = false;
+      return;
     }
- 
-  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-  const user = userCredential.user;
+
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
 
     await set(ref(db, "user/" + user.uid), {
       fname: fname,
@@ -119,29 +146,25 @@ form.addEventListener("submit", async (e) => {
       snum: snum,
       role: "Teacher",
       status: "N/A",
-      player_stats: {
-        progress: "0%"
-      },
+      player_stats: { progress: "0%" },
       account_status: "disabled",
       department: department
     });
 
-      formMessage.style.color = "lightgreen";
-      formMessage.textContent = "✅ Registration successful!";
-      form.reset();
-      await signOut(auth);
-      localStorage.setItem("validation", "Account created! Please wait for admin approval.");
-      window.location.href = "login.html";
+    formMessage.style.color = "lightgreen";
+    formMessage.textContent = "✅ Registration successful!";
+    form.reset();
+    await signOut(auth);
+    localStorage.setItem("validation", "Account created! Please wait for admin approval.");
+    window.location.href = "login.html";
 
-} catch (error) {
+  } catch (error) {
     if (error.code === "auth/email-already-in-use") {
-        formMessage.style.color = "red";
-        formMessage.textContent = "❌ Email is already in use.";
-        registerBtn.disabled = false;
-        return;
+      formMessage.style.color = "red";
+      formMessage.textContent = "❌ Email is already in use.";
+    } else {
+      console.error(error);
     }
     registerBtn.disabled = false;
-  
-}
-
+  }
 });

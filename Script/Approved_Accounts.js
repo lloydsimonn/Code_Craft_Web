@@ -32,8 +32,12 @@ import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/fi
   onAuthStateChanged(auth, async (user) => {
   if (!user) {
     
-    window.location.href = "../login.html";
+    window.location.href = "../Html/login.html";
     return;
+  }
+  else{
+    window.location.href = "#";
+    document.body.style.display = "block";
   }
 
   try {

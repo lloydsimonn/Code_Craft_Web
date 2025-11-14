@@ -31,24 +31,28 @@ import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/fi
   const email = "harley@gmail.com";
 
   onAuthStateChanged(auth, async (user) => {
+  // If not logged in → go to login right away
   if (!user) {
-    // Not logged in, redirect to login page
-    window.location.href = "../login.html";
+    window.location.replace("../Html/login.html");
     return;
+  } else {
+    // you asked to keep this — it won't break the rest
+    window.location.href = "#";
+    document.body.style.display = "block";
   }
 
   try {
     const snapshot = await get(ref(db, "user"));
     if (!snapshot.exists()) {
       await signOut(auth);
-      window.location.href = "../Html/login.html";
+      window.location.replace("../Html/login.html");
       return;
     }
 
     const users = snapshot.val();
     let matchedUser = null;
 
-    // Find the user in DB
+    // Find the user record by email
     for (const key in users) {
       if (users.hasOwnProperty(key) && users[key].email === user.email) {
         matchedUser = users[key];
@@ -58,27 +62,44 @@ import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/fi
 
     if (!matchedUser) {
       await signOut(auth);
-      window.location.href = "../Html/login.html";
+      window.location.replace("../Html/login.html");
       return;
     }
 
-    // Only allow admins with enabled accounts
-    if (matchedUser.role !== "admin" || matchedUser.account_status !== "enabled") {
-      await signOut(auth);
-      window.location.href = "../Html/login.html";
-      alert("You do not have permission to access this page");
-      return;
+
+    const currentPage = window.location.pathname.split("/").pop().toLowerCase();
+    const adminPages = ["admin.html", "approveaccounts.html"]; 
+    const isAdminPage = adminPages.includes(currentPage);
+
+
+    if (matchedUser.role === "admin" && matchedUser.account_status === "enabled") {
+      // If admin is logged in but not on an admin page, send them to admin.html
+      if (!isAdminPage) {
+        window.location.replace("../Html/admin.html");
+        return;
+      }
+      // If already on an admin page, allow (do nothing)
+    } else {
+      // Non-admin: block access if they're trying to open admin pages
+      if (isAdminPage) {
+        await signOut(auth);
+        window.location.replace("../Html/login.html");
+        return;
+      }
+      // Non-admin on non-admin pages: allow (do nothing)
     }
 
-    // ✅ If we reach here, user is an approved admin
-    console.log("Admin verified, page loaded");
+    // Ensure body visible (in case other logic hid it earlier)
+    document.body.style.display = "block";
 
   } catch (err) {
-    console.error("Error verifying admin:", err);
+    console.error("Error verifying user:", err);
     await signOut(auth);
-   window.location.href = "../Html/login.html";
+    window.location.replace("../Html/login.html");
   }
 });
+
+
  
 const formMessage = document.getElementById("formMessage");
   

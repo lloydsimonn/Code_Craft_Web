@@ -22,7 +22,7 @@
     .login-section {
       position: relative;
       z-index: 2;
-      margin-top: 3.5rem; /* adjust overlap distance */
+      margin-top: 5rem; /* adjust overlap distance */
     }
 
     .login-card {
@@ -33,7 +33,7 @@
 
   </style>
 </head>
-<body class="vh-100 d-flex flex-column" style="background-color: #D3D3D3;">
+<body class="vh-100 d-flex flex-column" style="background-color: #D3D3D3; display:none;">
 
   <!-- Top Bar -->
   <div class="top-bar d-flex justify-content-between align-items-center p-3">
@@ -53,15 +53,15 @@
   </div>
 
   <!-- Login Card -->
-  <div class="login-card bg-dark col-11 col-md-8 col-lg-6 text-light p-4 rounded-4 mt-5">
+<div class="login-card bg-dark col-11 col-md-7 col-lg-5 text-light p-4 rounded-4 mt-5 mx-auto">
     <h5 class="text-center fw-bold mb-4">ZEROINDEX</h5>
 
     <form id="loginForm">
       <div class="mb-3">
-        <input type="email" class="form-control form-control-lg rounded-pill bg-secondary text-white fw-bold border-0" placeholder="Email" id="email" required>
+        <input type="email" autocomplete="off" class="form-control form-control-lg rounded-pill bg-secondary text-white fw-bold border-0" placeholder="Email" id="email" required>
       </div>
       <div class="password-container mb-3">
-        <input type="password" class="form-control form-control-lg rounded-pill bg-secondary text-white fw-bold border-0" placeholder="Password" id="password" required>
+        <input type="password" autocomplete="off" class="form-control form-control-lg rounded-pill bg-secondary text-white fw-bold border-0" placeholder="Password" id="password" required>
         <span id="togglePassword" class="ms-n3">
           <i class="fa fa-eye-slash text-white" aria-hidden="true"></i>
         </span>

@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../Style/Fonts.css" type="text/css">
   <script type="module" src="../Script/auth.js" defer></script>
 </head>
-<body style="background-color: #d3d3d3;">
+<body style="background-color: #d3d3d3; display: none;">
 
   <!-- Top Navbar -->
   <div id="nav-placeholder"></div>
@@ -110,32 +110,39 @@
 </div>
 
   <!-- Modal -->
-  <div class="modal fade " id="createClassModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content p-3 bg-dark text-light">
-        <div class="modal-header">
-          <h5 class="modal-title fw-bold">Create Class</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="createClassForm">
-            <div class="mb-3">
-              <label for="className" class="form-label">Name:</label>
-              <input type="text" class="form-control" id="className" required>
-            </div>
-            <div class="mb-3">
-              <label for="classPassword" class="form-label">Password:</label>
-              <input type="password" class="form-control" id="classPassword" required>
-            </div>
-            <div class="d-flex justify-content-end gap-2">
-              <button type="submit" class="btn btn-outline-light">Create</button>
-              <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancel</button>
-            </div>
-          </form>
-        </div>
+<div class="modal fade" id="createClassModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-3 bg-dark text-light">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">Create Class</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+
+      <div class="modal-body">
+        <form id="createClassForm">
+
+          <div class="mb-3">
+            <label for="className" class="form-label">Classroom Name:</label>
+            <input type="text" class="form-control" id="className" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="schoolYear" class="form-label">School Year:</label>
+            <input type="text" class="form-control" id="schoolYear" placeholder="2024–2025" required>
+          </div>
+
+          <div class="d-flex justify-content-end gap-2">
+            <button id="createClassForm" type="submit" class="btn btn-outline-light">Create</button>
+            <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancel</button>
+          </div>
+
+        </form>
+      </div>
+
     </div>
   </div>
+</div>
+
 
 
   <!-- Scripts -->
@@ -143,5 +150,6 @@
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="../Script/nav.js"></script>
   <script src="../Script/Sidebar.js"></script>
+  <script type="module" src="../Script/Create_Class.js" defer></script>
 </body>
 </html>

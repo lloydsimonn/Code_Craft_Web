@@ -126,47 +126,69 @@ function handleLogin() {
 
 function cant_go_back(auth, db) {
   onAuthStateChanged(auth, async (user) => {
+    // ✅ Hide the body while checking user status
+    document.body.style.display = "none";
+
     if (user) {
       try {
-        
         const snapshot = await get(ref(db, "user"));
+
         if (snapshot.exists()) {
           const users = snapshot.val();
           let userData = null;
 
+          // 🔍 Find current user
           for (const key in users) {
-            if (users.hasOwnProperty(key) && users[key].email === user.email) {
+            if (users[key].email === user.email) {
               userData = users[key];
               break;
             }
           }
 
           if (userData) {
+            // ✅ Check if account is enabled
             if (userData.account_status === "enabled") {
-             
+              // Redirect based on role
               if (userData.role === "Teacher") {
-                window.location.href = "../index.html";
+                window.location.replace("../index.html");
               } else if (userData.role === "admin") {
-                window.location.href = "admin.html";
+                window.location.replace("admin.html");
+              } else {
+                // if other roles exist, you can handle them here
+                window.location.replace("../index.html");
               }
+              return; // stop here, don’t show login
             } else {
-              
+              // Account exists but not approved
               await signOut(auth);
+              document.body.style.display = "block";
               formMessage.textContent = "Your account is not approved yet";
               formMessage.style.setProperty("color", "red", "important");
               formMessage.style.fontSize = "1.25rem";
-              formMessage.style.fontWeight = "600"; 
+              formMessage.style.fontWeight = "600";
             }
           } else {
-           
+            // No matching user found
             await signOut(auth);
-            formMessage.textContent = "invalid credentials";
+            document.body.style.display = "block";
+            formMessage.textContent = "Invalid credentials.";
+            formMessage.style.setProperty("color", "red", "important");
+            formMessage.style.fontSize = "1.25rem";
+            formMessage.style.fontWeight = "600";
           }
+        } else {
+          // No users in DB
+          document.body.style.display = "block";
         }
       } catch (err) {
         console.error("Error checking user:", err);
+        document.body.style.display = "block";
       }
+    } else {
+      // ✅ No user logged in → show the login page
+      document.body.style.display = "block";
     }
   });
 }
+
 
